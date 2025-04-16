@@ -10,4 +10,5 @@ import com.example.ecommerce.baseclasses.Product;
 public interface ProductRepository extends JpaRepository< Product,Long > {
 	List<Product> findByCategoryId(Long categoryId);
 	Optional<Product> findByIdAndCategoryId(Long categoryId,Long productId);
+	Optional<Product> findByProductname(String productName);
 }

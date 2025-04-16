@@ -75,11 +75,11 @@ public class BookingController {
 	}
 	
 	@GetMapping("/booking/{userId}")
-	public List<Booking> getBookingsByUserId(@PathVariable long userId) {
+	public Object getBookingsByUserId(@PathVariable long userId) {
 	    List<Booking> bookings = bookingRepository.findByUserId(userId);
 
 	    if (bookings.isEmpty()) {
-	        throw new RuntimeException("No bookings found for User ID: " + userId);
+	        return "No bookings found for User ID: " + userId ;
 	    }
 
 	    return bookings; //  Returns a list of bookings

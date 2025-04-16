@@ -11,7 +11,7 @@ public class Booking {
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 	
 	@ManyToOne
     @JoinColumn(name = "userid", nullable = false) // Creates a foreign key column
@@ -26,14 +26,14 @@ public class Booking {
 	
 	}
 	
-	public Booking(int id, UserWeb user, Product product) {
+	public Booking(long id, UserWeb user, Product product) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.product = product;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

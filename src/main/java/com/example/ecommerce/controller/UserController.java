@@ -35,10 +35,10 @@ public class UserController {
     }
 	
 	@GetMapping("/user/{id}")
-	public UserWeb getOneUser(@PathVariable long id){
+	public Object getOneUser(@PathVariable long id){
 		Optional <UserWeb> user = userRepository.findById(id);
 		if(user.isEmpty()) {
-			throw new RuntimeException("User Not Found");
+			return "User Not Found";
 		}
 		return user.get();
 			

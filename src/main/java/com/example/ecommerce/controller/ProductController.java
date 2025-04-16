@@ -24,40 +24,48 @@ public class ProductController {
 	}
 	
 	@GetMapping("/product/{id}")
-	public Product getOneProduct(@PathVariable long id){
+	public Object getOneProduct(@PathVariable long id){
 		Optional <Product> product = productRepository.findById(id);
 		if(product.isEmpty()) {
-			throw new RuntimeException("Product Not Found");
+			return "Product Not Found";
 		}
 		return product.get();
 	}
 
 	
 	@GetMapping("/product/category/{id}")
-	public List<Product> getProductByCategory(@PathVariable long id){
+	public Object getProductByCategory(@PathVariable long id){
 		List<Product> product = productRepository.findByCategoryId(id);
 		if(product.isEmpty()) {
-			throw new RuntimeException("Product Not Found");
+			return "Product Not Found";
 		}
 		//System.out.println(product);
 		return product;
 	}
 	
 	@GetMapping("/product/{productId}/category/{categoryId}")
-	public Product getProducts( @PathVariable Long categoryId, @PathVariable Long productId) {
+	public Object getProducts( @PathVariable Long categoryId, @PathVariable Long productId) {
 
 	        Optional<Product> product = productRepository.findByIdAndCategoryId(productId, categoryId);
 	        if (product.isEmpty()) {
-	            throw new RuntimeException("No matching product found in this category.");
+	            return "No matching product found in this category";
 	        }
 	        //System.out.println("Received Product: " + List.of(product.get()));
 	        return product.get();	    
 	}
 	
 	@PostMapping("/product")
-	public void createProduct(@RequestBody Product product){
+	public String createProduct(@RequestBody Product product){
+		Optional<Product> existingProduct = productRepository.findByProductname(product.getProductname());
 		//System.out.println("Received Product: " + product);
-		productRepository.save(product);
+		if(existingProduct.isEmpty()) {
+			productRepository.save(product);
+			return "Product Added";
+		}
+		else {
+			return "Product Exist";
+		}
+		
 	}
 	
 }

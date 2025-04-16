@@ -18,9 +18,10 @@ public class Category {
 	
 	}
 	
-	public Category(String categoryname) {
+	public Category(Long id, String categoryname) {
 	
 		super();
+		this.id = id;
 		this.categoryname = categoryname;
 	
 	}

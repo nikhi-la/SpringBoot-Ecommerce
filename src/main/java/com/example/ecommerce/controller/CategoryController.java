@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,28 @@ public class CategoryController {
 	
 	@GetMapping("/category")
 	public List<Category> getAllCategories(){
-		return categoryRepository.findAll();
+		
+		List<Category> catgeoryList =  categoryRepository.findAll();
+		if(!catgeoryList.isEmpty()) {
+			return catgeoryList;
+		}
+		else {
+			return List.of();
+		}
 	}
 	
 	@PostMapping("/category")
-	public void createCategories(@RequestBody Category category){
-		categoryRepository.save(category);
+	public String createCategories(@RequestBody Category category){
+		Optional<Category> existingCategory = categoryRepository.findByCategoryname(category.getCategoryname());
+		
+		if (existingCategory.isPresent()) {
+            return "Category Exist";
+        } else {
+        	categoryRepository.save(category);
+    		return "Category Added";
+        }
+		
+		
 	}
 	
 	

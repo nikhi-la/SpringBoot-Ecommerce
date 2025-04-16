@@ -26,6 +26,7 @@ public class UserWeb {
     
 	public UserWeb(Long id, String username, String password, String email) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email=email;

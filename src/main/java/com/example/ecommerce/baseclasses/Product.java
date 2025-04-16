@@ -26,8 +26,9 @@ public class Product {
 	}
 	
 
-	public Product(Category category, String productname, int stock, int price) {
+	public Product(Long id, Category category, String productname, int stock, int price) {
 		super();
+		this.id = id;
 		this.category = category;
 		this.productname = productname;
 		this.stock = stock;
